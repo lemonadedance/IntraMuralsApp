@@ -41,7 +41,7 @@ public class Team {
         this.sport = sport;
     }
 
-    public String getTeam_status() {
+    public String getTeamStatus() {
         return teamStatus;
     }
 
