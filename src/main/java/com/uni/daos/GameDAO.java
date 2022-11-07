@@ -55,8 +55,8 @@ public class GameDAO {
                 game.setGameId(rs.getInt("game_id"));
                 game.setVenueTitle(rs.getString("venue"));
                 game.setSeasonTitle(rs.getString("season"));
-                game.setHomeTeam(rs.getString("home_score"));
-                game.setAwayTeam(rs.getString("away_score"));
+                game.setHomeTeam(rs.getString("home_team"));
+                game.setAwayTeam(rs.getString("away_team"));
                 game.setHomeScore(rs.getInt("home_score"));
                 game.setAwayScore(rs.getInt("away_score"));
                 game.setGameStart(rs.getLong("game_start"));
