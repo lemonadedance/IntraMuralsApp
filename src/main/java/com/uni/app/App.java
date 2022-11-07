@@ -4,13 +4,29 @@ import com.uni.controllers.SchedulingController;
 import com.uni.controllers.TeamController;
 import com.uni.controllers.UserController;
 import io.javalin.Javalin;
+import io.javalin.plugin.openapi.OpenApiOptions;
+import io.javalin.plugin.openapi.OpenApiPlugin;
+import io.javalin.plugin.openapi.jackson.JacksonModelConverterFactory;
+import io.javalin.plugin.openapi.jackson.JacksonToJsonMapper;
+import io.javalin.plugin.openapi.ui.SwaggerOptions;
+import io.swagger.v3.oas.models.info.Info;
 
 
 public class App {
 
     public static void main(String[] args) {
 
-        Javalin app = Javalin.create(config -> config.enableCorsForAllOrigins());
+        Javalin app = Javalin.create(config -> {
+            config.enableCorsForAllOrigins();
+
+            Info applicationInfo = new Info().version("1.0").description("IntraMural application");
+            OpenApiOptions options = new OpenApiOptions(applicationInfo);
+            options.path("/swagger-docs");
+            options.activateAnnotationScanningFor("com.uni.controllers");
+            options.swagger(new SwaggerOptions("/swagger").title("IntraMural Swagger Documentation"));
+
+            config.registerPlugin(new OpenApiPlugin(options));
+        });
 
 
         app.post("/login", UserController::login);

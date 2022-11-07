@@ -21,7 +21,7 @@ public class TeamDAO {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1,team.getName());
             ps.setInt(2,team.getCaptain());
-            ps.setString(3,team.getTeam_status());
+            ps.setString(3,team.getTeamStatus());
             ps.setString(4,team.getSport());
             ps.executeUpdate();
             return team;
