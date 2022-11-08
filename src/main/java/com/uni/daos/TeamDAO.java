@@ -12,10 +12,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeamDAO {
+public class TeamDAO implements CrudDAO<Team> {
 
-    public Team createTeam(Team team){
-
+//    create table team(
+//            name varchar primary key,
+//            captain int references im_user(user_id),
+//    team_status team_status,
+//    sport sport
+//);
+    @Override
+    public Team createInstance(Team team) {
         try(Connection connection = ConnectionUtil.getConnection()){
             String sql = "insert into team values (?,?,?::team_status,?::sport)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -30,17 +36,10 @@ public class TeamDAO {
             exception.printStackTrace();
             throw new TeamCreationException();
         }
-
     }
 
-//    create table team(
-//            name varchar primary key,
-//            captain int references im_user(user_id),
-//    team_status team_status,
-//    sport sport
-//);
-    public List<Team> getAllTeams(){
-
+    @Override
+    public List<Team> getAll() {
         try(Connection connection = ConnectionUtil.getConnection()){
             String sql = "select * from team";
             PreparedStatement ps = connection.prepareStatement(sql);

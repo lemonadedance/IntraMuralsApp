@@ -8,12 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameDAO {
+public class GameDAO implements CrudDAO<Game> {
 
-
-
-    public Game createGame(Game game){
-
+    @Override
+    public Game createInstance(Game game) {
         try(Connection conn = ConnectionUtil.getConnection()){
             String sql = "insert into game values (default, ?, ?, ?, ?, ?, ?, ?, ?::game_outcome)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -38,9 +36,9 @@ public class GameDAO {
             exception.printStackTrace();
             throw new DatabaseConnectionException();
         }
-
     }
 
+    @Override
     public List<Game> getAll(){
 
         try(Connection conn = ConnectionUtil.getConnection()){
