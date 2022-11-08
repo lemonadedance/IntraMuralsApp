@@ -5,7 +5,7 @@ import com.uni.exceptions.PasswordMismatchException;
 import com.uni.models.ImUser;
 import com.uni.models.LoginCredentials;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private UserDAO userDao;
 

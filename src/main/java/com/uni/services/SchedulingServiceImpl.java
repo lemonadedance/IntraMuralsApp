@@ -38,6 +38,6 @@ public class SchedulingServiceImpl implements SchedulingService{
 
     @Override
     public Game scheduleGame(Game game) {
-        return this.gameDAO.createGame(game);
+        return this.gameDAO.createInstance(game);
     }
 }

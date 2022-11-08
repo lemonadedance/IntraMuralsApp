@@ -15,10 +15,10 @@ public class TeamServiceImpl implements TeamService{
 
     @Override
     public Team registerTeam(Team team) {
-        return this.teamDAO.createTeam(team);
+        return this.teamDAO.createInstance(team);
     }
 
     public List<Team> getAllTeams(){
-        return this.teamDAO.getAllTeams();
+        return this.teamDAO.getAll();
     }
 }
