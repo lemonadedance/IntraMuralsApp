@@ -22,7 +22,10 @@ public class ConnectionUtil {
             // If running tests, use H2 in-memory database, otherwise, use Postgres database
             if (testMode.equals("true")) {
                 Connection conn = DriverManager.getConnection("jdbc:h2:mem:test");
+
+                clearDatabase(conn);
                 populateH2Database(conn);
+
                 return conn;
             } else {
                 Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?user=postgres&password=password");
@@ -48,7 +51,7 @@ public class ConnectionUtil {
                 "    display_biometrics bool\n" +
                 ")";
 
-        String user1Sql = "insert into im_user (username, password, role, height, weight, profile_pic, display_biometrics) values (?, ?, ?::im_role, ?, ?, ?, ?)";
+        String insertUserSql = "insert into im_user (username, password, role, height, weight, profile_pic, display_biometrics) values (?, ?, ?::im_role, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps1 = conn.prepareStatement(imRoleSql); // Create im_role enum
@@ -57,7 +60,7 @@ public class ConnectionUtil {
             PreparedStatement ps2 = conn.prepareStatement(userTableSql); // Create im_user table
             ps2.executeUpdate();
 
-            PreparedStatement ps3 = conn.prepareStatement(user1Sql); // Create a user
+            PreparedStatement ps3 = conn.prepareStatement(insertUserSql); // Create a user
             ps3.setString(1, "testing123");
             ps3.setString(2, "12345");
             ps3.setString(3, "player");
@@ -66,8 +69,39 @@ public class ConnectionUtil {
             ps3.setString(6, null);
             ps3.setBoolean(7, true);
             ps3.executeUpdate();
+
+            PreparedStatement ps4 = conn.prepareStatement(insertUserSql); // Create a user
+            ps4.setString(1, "gatorFan99");
+            ps4.setString(2, "testpassword");
+            ps4.setString(3, "admin");
+            ps4.setInt(4, 64);
+            ps4.setInt(5, 135);
+            ps4.setString(6, null);
+            ps4.setBoolean(7, false);
+            ps4.executeUpdate();
+
+            PreparedStatement ps5 = conn.prepareStatement(insertUserSql); // Create a user
+            ps5.setString(1, "john_doe");
+            ps5.setString(2, "astroswon");
+            ps5.setString(3, "referee");
+            ps5.setInt(4, 73);
+            ps5.setInt(5, 190);
+            ps5.setString(6, null);
+            ps5.setBoolean(7, true);
+            ps5.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void clearDatabase(Connection conn) {
+        String sql = "DROP ALL OBJECTS";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
