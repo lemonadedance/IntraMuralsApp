@@ -3,6 +3,7 @@ package com.uni.app;
 import com.uni.controllers.SchedulingController;
 import com.uni.controllers.TeamController;
 import com.uni.controllers.UserController;
+import com.uni.datautils.ConnectionUtil;
 import io.javalin.Javalin;
 import io.javalin.plugin.openapi.OpenApiOptions;
 import io.javalin.plugin.openapi.OpenApiPlugin;
@@ -11,11 +12,16 @@ import io.javalin.plugin.openapi.jackson.JacksonToJsonMapper;
 import io.javalin.plugin.openapi.ui.SwaggerOptions;
 import io.swagger.v3.oas.models.info.Info;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 
 public class App {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
         Javalin app = Javalin.create(config -> {
             config.enableCorsForAllOrigins();
 
