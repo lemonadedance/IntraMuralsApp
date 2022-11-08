@@ -22,7 +22,7 @@ public class SeasonDAO implements CrudDAO<Season> {
             ps.setString(1, season.getTitle());
 
             ps.executeUpdate();
-            
+
             return season;
         } catch (SQLException exception) {
             exception.printStackTrace();
