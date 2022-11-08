@@ -23,7 +23,7 @@ public class SchedulingServiceImpl implements SchedulingService{
 
     @Override
     public List<Venue> getAllVenues() {
-        return this.venueDAO.readAllVenues();
+        return this.venueDAO.getAll();
     }
 
     @Override
