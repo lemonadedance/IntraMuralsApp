@@ -10,7 +10,7 @@ public class ConnectionUtil {
 
     public static Connection getConnection(){
         try {
-            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?user=postgres&password=mysecretpassword");
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?user=postgres&password=password");
             return conn;
         } catch (SQLException e) {
             e.printStackTrace();

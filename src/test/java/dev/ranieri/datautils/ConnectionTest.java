@@ -6,8 +6,7 @@ import com.uni.models.ImUser;
 import org.junit.jupiter.api.Test;
 
 public class ConnectionTest {
-
-
+    
     @Test
     void connects_to_database(){
         System.out.println(ConnectionUtil.getConnection());
