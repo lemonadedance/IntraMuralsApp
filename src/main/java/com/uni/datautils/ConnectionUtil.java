@@ -23,9 +23,6 @@ public class ConnectionUtil {
             if (testMode.equals("true")) {
                 Connection conn = DriverManager.getConnection("jdbc:h2:mem:test");
 
-                clearDatabase(conn);
-                populateH2Database(conn);
-
                 return conn;
             } else {
                 Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?user=postgres&password=password");
@@ -94,7 +91,7 @@ public class ConnectionUtil {
         }
     }
 
-    public static void clearDatabase(Connection conn) {
+    public static void clearH2Database(Connection conn) {
         String sql = "DROP ALL OBJECTS";
 
         try {
