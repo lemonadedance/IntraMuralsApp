@@ -14,7 +14,7 @@ import io.javalin.plugin.openapi.annotations.*;
 public class SchedulingController {
 
 
-    private static SchedulingService schedulingService = new SchedulingServiceImpl(new VenueDAO(), new GameDAO(), new SeasonDAO());
+    private static SchedulingService schedulingService = new SchedulingServiceImpl(VenueDAO.getSingleton(), GameDAO.getSingleton(), SeasonDAO.getSingleton());
 
     @OpenApi(
             path = "/venues",

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CrudDAO<Entity> {
 
-    Entity createInstance(Entity entity);
-    List<Entity> getAll();
+    Entity save(Entity entity);
+    List<Entity> findAll();
 
 }

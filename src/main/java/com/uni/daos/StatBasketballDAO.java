@@ -10,19 +10,21 @@ import java.util.List;
 
 public class StatBasketballDAO implements CrudDAO<StatBasketball>{
 
-    //    create table stat_basketball(
-//        s_basketball_id serial primary key,
-//        user_id int references im_user(user_id),
-//    game_id int references game(game_id),
-//            team_name varchar references team(name),
-//            points int,
-//            rebounds int,
-//            assists int,
-//            fouls int
-//            );
+    private static StatBasketballDAO statBasketballDAO = null;
+
+    public static StatBasketballDAO getSingleton(){
+
+        if(statBasketballDAO == null){
+            statBasketballDAO = new StatBasketballDAO();
+        }
+
+        return statBasketballDAO;
+    }
+
+    private StatBasketballDAO() {}
 
     @Override
-    public StatBasketball createInstance(StatBasketball statBasketball) {
+    public StatBasketball save(StatBasketball statBasketball) {
 
         try(Connection conn = ConnectionUtil.getConnection()){
 
@@ -38,7 +40,7 @@ public class StatBasketballDAO implements CrudDAO<StatBasketball>{
     }
 
     @Override
-    public List<StatBasketball> getAll() {
+    public List<StatBasketball> findAll() {
         return null;
     }
 }

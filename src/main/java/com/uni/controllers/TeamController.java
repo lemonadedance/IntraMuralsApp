@@ -9,7 +9,7 @@ import io.javalin.plugin.openapi.annotations.*;
 
 public class TeamController {
 
-    private static TeamService teamService = new TeamServiceImpl(new TeamDAO());
+    private static TeamService teamService = new TeamServiceImpl(TeamDAO.getSingleton());
 
     @OpenApi(
             path = "/teams",

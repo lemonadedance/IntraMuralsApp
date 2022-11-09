@@ -10,7 +10,7 @@ import io.javalin.plugin.openapi.annotations.*;
 
 public class UserController {
 
-    private static UserService userService = new UserServiceImpl(new UserDAO());
+    private static UserService userService = new UserServiceImpl(UserDAO.getSingleton());
 
     @OpenApi(
             path = "/login",
