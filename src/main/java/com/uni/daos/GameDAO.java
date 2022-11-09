@@ -2,7 +2,7 @@ package com.uni.daos;
 
 import com.uni.datautils.ConnectionUtil;
 import com.uni.exceptions.DatabaseConnectionException;
-import com.uni.models.Game;
+import com.uni.entities.Game;
 
 import java.sql.*;
 import java.util.ArrayList;

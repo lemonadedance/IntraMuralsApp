@@ -2,7 +2,7 @@ package com.uni.daos;
 
 import com.uni.datautils.ConnectionUtil;
 import com.uni.exceptions.DatabaseConnectionException;
-import com.uni.models.StatBasketball;
+import com.uni.entities.StatBasketball;
 
 import java.sql.Connection;
 import java.sql.SQLException;

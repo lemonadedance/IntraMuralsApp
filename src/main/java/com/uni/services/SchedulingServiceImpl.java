@@ -3,9 +3,9 @@ package com.uni.services;
 import com.uni.daos.GameDAO;
 import com.uni.daos.SeasonDAO;
 import com.uni.daos.VenueDAO;
-import com.uni.models.Game;
-import com.uni.models.Season;
-import com.uni.models.Venue;
+import com.uni.entities.Game;
+import com.uni.entities.Season;
+import com.uni.entities.Venue;
 
 import java.util.List;
 

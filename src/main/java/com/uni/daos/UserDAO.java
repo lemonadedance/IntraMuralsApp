@@ -4,7 +4,7 @@ import com.uni.datautils.ConnectionUtil;
 import com.uni.exceptions.DatabaseConnectionException;
 import com.uni.exceptions.ImUserCreationException;
 import com.uni.exceptions.NoUsernameFoundException;
-import com.uni.models.ImUser;
+import com.uni.entities.ImUser;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,15 +1,16 @@
 package com.uni.controllers;
 
 import com.uni.daos.TeamDAO;
-import com.uni.models.Team;
-import com.uni.services.TeamService;
-import com.uni.services.TeamServiceImpl;
+import com.uni.daos.UserDAO;
+import com.uni.entities.Team;
+import com.uni.services.RegistrationService;
+import com.uni.services.RegistrationServiceImpl;
 import io.javalin.http.Context;
 import io.javalin.plugin.openapi.annotations.*;
 
 public class TeamController {
 
-    private static TeamService teamService = new TeamServiceImpl(TeamDAO.getSingleton());
+    private static RegistrationService registrationService = new RegistrationServiceImpl(TeamDAO.getSingleton(), UserDAO.getSingleton());
 
     @OpenApi(
             path = "/teams",
@@ -22,7 +23,7 @@ public class TeamController {
     )
     public static void registerTeam(Context context){
         Team team = context.bodyAsClass(Team.class);
-        teamService.registerTeam(team);
+        registrationService.registerTeam(team);
         context.status(204);
     }
 
@@ -35,6 +36,6 @@ public class TeamController {
             }
     )
     public static void retrieveAllTeams(Context context){
-        context.json(teamService.getAllTeams());
+        context.json(registrationService.getAllTeams());
     }
 }

@@ -3,7 +3,7 @@ package com.uni.daos;
 import com.uni.datautils.ConnectionUtil;
 import com.uni.exceptions.DatabaseConnectionException;
 import com.uni.exceptions.TeamCreationException;
-import com.uni.models.Team;
+import com.uni.entities.Team;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

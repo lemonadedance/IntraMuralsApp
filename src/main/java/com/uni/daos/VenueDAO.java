@@ -3,7 +3,7 @@ package com.uni.daos;
 import com.uni.datautils.ConnectionUtil;
 import com.uni.exceptions.DatabaseConnectionException;
 import com.uni.exceptions.SeasonCreationException;
-import com.uni.models.Venue;
+import com.uni.entities.Venue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
