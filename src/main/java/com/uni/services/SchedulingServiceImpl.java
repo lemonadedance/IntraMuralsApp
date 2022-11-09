@@ -23,21 +23,21 @@ public class SchedulingServiceImpl implements SchedulingService{
 
     @Override
     public List<Venue> getAllVenues() {
-        return this.venueDAO.getAll();
+        return this.venueDAO.findAll();
     }
 
     @Override
     public List<Game> getAllGames() {
-        return this.gameDAO.getAll();
+        return this.gameDAO.findAll();
     }
 
     @Override
     public List<Season> getAllSeasons() {
-        return this.seasonDAO.getAll();
+        return this.seasonDAO.findAll();
     }
 
     @Override
     public Game scheduleGame(Game game) {
-        return this.gameDAO.createInstance(game);
+        return this.gameDAO.save(game);
     }
 }

@@ -14,14 +14,22 @@ import java.util.List;
 
 public class TeamDAO implements CrudDAO<Team> {
 
-//    create table team(
-//            name varchar primary key,
-//            captain int references im_user(user_id),
-//    team_status team_status,
-//    sport sport
-//);
+    private static TeamDAO teamDAO = null;
+
+    public static TeamDAO getSingleton(){
+
+        if(teamDAO == null){
+            teamDAO = new TeamDAO();
+        }
+
+        return teamDAO;
+    }
+
+    private TeamDAO() {}
+
+
     @Override
-    public Team createInstance(Team team) {
+    public Team save(Team team) {
         try(Connection connection = ConnectionUtil.getConnection()){
             String sql = "insert into team values (?,?,?::team_status,?::sport)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -39,7 +47,7 @@ public class TeamDAO implements CrudDAO<Team> {
     }
 
     @Override
-    public List<Team> getAll() {
+    public List<Team> findAll() {
         try(Connection connection = ConnectionUtil.getConnection()){
             String sql = "select * from team";
             PreparedStatement ps = connection.prepareStatement(sql);

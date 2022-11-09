@@ -10,8 +10,21 @@ import java.util.List;
 
 public class GameDAO implements CrudDAO<Game> {
 
+    private static GameDAO gameDAO = null;
+
+    public static GameDAO getSingleton(){
+
+        if(gameDAO == null){
+            gameDAO = new GameDAO();
+        }
+
+        return gameDAO;
+    }
+
+    private  GameDAO(){}
+
     @Override
-    public Game createInstance(Game game) {
+    public Game save(Game game) {
         try(Connection conn = ConnectionUtil.getConnection()){
             String sql = "insert into game values (default, ?, ?, ?, ?, ?, ?, ?, ?::game_outcome)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -39,7 +52,7 @@ public class GameDAO implements CrudDAO<Game> {
     }
 
     @Override
-    public List<Game> getAll(){
+    public List<Game> findAll(){
 
         try(Connection conn = ConnectionUtil.getConnection()){
             String sql = "select * from game";

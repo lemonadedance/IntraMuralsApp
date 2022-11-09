@@ -26,7 +26,7 @@ public class ConnectionTest {
 
     @Test
     void sample(){
-        UserDAO userDao = new UserDAO();
+        UserDAO userDao = UserDAO.getSingleton();
         ImUser user = userDao.getByUsername("gatorFan99");
         System.out.println(user);
     }

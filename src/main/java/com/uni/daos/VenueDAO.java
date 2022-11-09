@@ -14,8 +14,20 @@ import java.util.List;
 
 public class VenueDAO implements CrudDAO<Venue> {
 
+    private static VenueDAO venueDAO = null;
+
+    public static VenueDAO getSingleton(){
+
+        if(venueDAO == null){
+            venueDAO = new VenueDAO();
+        }
+        return venueDAO;
+    }
+
+    private VenueDAO() {}
+
     @Override
-    public Venue createInstance(Venue venue) {
+    public Venue save(Venue venue) {
         try (Connection connection = ConnectionUtil.getConnection()) {
             String sql = "insert into venue (title) values (?)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -31,7 +43,7 @@ public class VenueDAO implements CrudDAO<Venue> {
     }
 
     @Override
-    public List<Venue> getAll() {
+    public List<Venue> findAll() {
         try(Connection conn = ConnectionUtil.getConnection()){
             String sql = "select * from venue";
             List<Venue> venues = new ArrayList();

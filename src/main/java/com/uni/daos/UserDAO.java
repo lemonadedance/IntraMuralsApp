@@ -12,6 +12,18 @@ import java.util.List;
 
 public class UserDAO implements CrudDAO<ImUser> {
 
+    private static UserDAO userDAO = null;
+
+    public static UserDAO getSingleton(){
+
+        if(userDAO == null){
+            userDAO = new UserDAO();
+        }
+        return userDAO;
+    }
+
+    private UserDAO() {}
+
     public ImUser getByUsername(String username){
         try(Connection connection = ConnectionUtil.getConnection()) {
             String sql = "select * from im_user where username = ?";
@@ -38,7 +50,7 @@ public class UserDAO implements CrudDAO<ImUser> {
     }
 
     @Override
-    public ImUser createInstance(ImUser imUser) {
+    public ImUser save(ImUser imUser) {
         try (Connection connection = ConnectionUtil.getConnection()) {
             String sql = "insert into im_user (username, password, role, height, weight, profile_pic, display_biometrics) VALUES (?, ?, ?::im_role, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -64,7 +76,7 @@ public class UserDAO implements CrudDAO<ImUser> {
     }
 
     @Override
-    public List<ImUser> getAll() {
+    public List<ImUser> findAll() {
         try (Connection connection = ConnectionUtil.getConnection()) {
             String sql = "select * from im_user";
             PreparedStatement ps = connection.prepareStatement(sql);

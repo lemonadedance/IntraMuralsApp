@@ -14,8 +14,20 @@ import java.util.List;
 
 public class SeasonDAO implements CrudDAO<Season> {
 
+    private static SeasonDAO seasonDAO = null;
+
+    public static SeasonDAO getSingleton(){
+
+        if(seasonDAO == null){
+            seasonDAO = new SeasonDAO();
+        }
+        return seasonDAO;
+    }
+
+    private SeasonDAO() {}
+
     @Override
-    public Season createInstance(Season season) {
+    public Season save(Season season) {
         try (Connection connection = ConnectionUtil.getConnection()) {
             String sql = "insert into season (title) values (?)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -31,7 +43,7 @@ public class SeasonDAO implements CrudDAO<Season> {
     }
 
     @Override
-    public List<Season> getAll(){
+    public List<Season> findAll(){
 
         try(Connection conn = ConnectionUtil.getConnection()) {
 
