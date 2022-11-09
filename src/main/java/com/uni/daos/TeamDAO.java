@@ -71,4 +71,9 @@ public class TeamDAO implements CrudDAO<Team> {
             throw new DatabaseConnectionException();
         }
     }
+
+    @Override
+    public void update(Team team) {
+
+    }
 }

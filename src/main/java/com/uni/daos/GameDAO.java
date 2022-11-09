@@ -82,4 +82,9 @@ public class GameDAO implements CrudDAO<Game> {
             throw new DatabaseConnectionException();
         }
     }
+
+    @Override
+    public void update(Game game) {
+
+    }
 }

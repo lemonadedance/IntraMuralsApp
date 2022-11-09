@@ -62,4 +62,9 @@ public class VenueDAO implements CrudDAO<Venue> {
             throw new DatabaseConnectionException();
         }
     }
+
+    @Override
+    public void update(Venue venue) {
+
+    }
 }
