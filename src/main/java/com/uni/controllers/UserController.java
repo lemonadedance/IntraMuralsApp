@@ -1,16 +1,17 @@
 package com.uni.controllers;
 
+import com.uni.daos.TeamDAO;
 import com.uni.daos.UserDAO;
-import com.uni.models.ImUser;
-import com.uni.models.LoginCredentials;
-import com.uni.services.UserService;
-import com.uni.services.UserServiceImpl;
+import com.uni.entities.ImUser;
+import com.uni.dtos.LoginCredentials;
+import com.uni.services.RegistrationService;
+import com.uni.services.RegistrationServiceImpl;
 import io.javalin.http.Context;
 import io.javalin.plugin.openapi.annotations.*;
 
 public class UserController {
 
-    private static UserService userService = new UserServiceImpl(UserDAO.getSingleton());
+    private static RegistrationService registrationService = new RegistrationServiceImpl(TeamDAO.getSingleton(),UserDAO.getSingleton());
 
     @OpenApi(
             path = "/login",
@@ -23,7 +24,7 @@ public class UserController {
     )
     public static void login(Context ctx){
         LoginCredentials credentials = ctx.bodyAsClass(LoginCredentials.class);
-        ImUser user = userService.getUserFromLoginCredentials(credentials);
+        ImUser user = registrationService.getUserFromLoginCredentials(credentials);
         ctx.sessionAttribute("user",user);
         ctx.json(user);
     };

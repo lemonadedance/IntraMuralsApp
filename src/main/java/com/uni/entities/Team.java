@@ -1,4 +1,4 @@
-package com.uni.models;
+package com.uni.entities;
 
 public class Team {
 

@@ -2,7 +2,7 @@ package dev.ranieri.datautils;
 
 import com.uni.daos.UserDAO;
 import com.uni.datautils.ConnectionUtil;
-import com.uni.models.ImUser;
+import com.uni.entities.ImUser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
