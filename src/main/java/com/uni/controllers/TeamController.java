@@ -1,6 +1,7 @@
 package com.uni.controllers;
 
 import com.uni.daos.TeamDAO;
+import com.uni.daos.TeamRequestDAO;
 import com.uni.daos.UserDAO;
 import com.uni.entities.Team;
 import com.uni.services.RegistrationService;
@@ -10,7 +11,7 @@ import io.javalin.plugin.openapi.annotations.*;
 
 public class TeamController {
 
-    private static RegistrationService registrationService = new RegistrationServiceImpl(TeamDAO.getSingleton(), UserDAO.getSingleton());
+    private static RegistrationService registrationService = new RegistrationServiceImpl(TeamDAO.getSingleton(), UserDAO.getSingleton(), TeamRequestDAO.getSingleton());
 
     @OpenApi(
             path = "/teams",
