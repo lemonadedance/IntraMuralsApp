@@ -43,4 +43,9 @@ public class StatBasketballDAO implements CrudDAO<StatBasketball>{
     public List<StatBasketball> findAll() {
         return null;
     }
+
+    @Override
+    public void update(StatBasketball statBasketball) {
+
+    }
 }

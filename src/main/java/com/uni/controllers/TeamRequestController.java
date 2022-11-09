@@ -26,4 +26,18 @@ public class TeamRequestController {
     public void getAllTeamRequests(Context context){
         context.json(registrationService.getAllTeamRequests());
     }
+
+    public void approveRequest(Context context){
+        int id = Integer.parseInt(context.pathParam("id"));
+        TeamRequest request = this.registrationService.approveRequest(id);
+        context.json(request);
+    }
+
+    public void denyRequest(Context context){
+        int id = Integer.parseInt(context.pathParam("id"));
+        TeamRequest request = this.registrationService.denyRequest(id);
+        context.json(request);
+    }
+
+
 }

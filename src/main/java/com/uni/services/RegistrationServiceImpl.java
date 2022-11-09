@@ -8,6 +8,7 @@ import com.uni.entities.ImUser;
 import com.uni.entities.Team;
 import com.uni.entities.TeamRequest;
 import com.uni.exceptions.PasswordMismatchException;
+import com.uni.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -62,5 +63,42 @@ public class RegistrationServiceImpl implements RegistrationService{
     public TeamRequest createRequest(TeamRequest teamRequest) {
         teamRequest.setTeamRequestStatus("pending");
         return this.teamRequestDAO.save(teamRequest);
+    }
+
+    @Override
+    public TeamRequest approveRequest(int requestId) {
+
+        TeamRequest teamRequest = null;
+
+        for(TeamRequest t : teamRequestDAO.findAll()){
+            if(t.getTeamRequestId() == requestId){
+                teamRequest = t;
+            }
+        }
+        if(teamRequest == null){
+            throw new ResourceNotFoundException(requestId, TeamRequest.class);
+        }
+        teamRequest.setTeamRequestStatus("accepted");
+        teamRequestDAO.update(teamRequest);
+
+        return teamRequest;
+    }
+
+    @Override
+    public TeamRequest denyRequest(int requestId) {
+        TeamRequest teamRequest = null;
+
+        for(TeamRequest t : teamRequestDAO.findAll()){
+            if(t.getTeamRequestId() == requestId){
+                teamRequest = t;
+            }
+        }
+        if(teamRequest == null){
+            throw new ResourceNotFoundException(requestId, TeamRequest.class);
+        }
+        teamRequest.setTeamRequestStatus("denied");
+        teamRequestDAO.update(teamRequest);
+
+        return teamRequest;
     }
 }

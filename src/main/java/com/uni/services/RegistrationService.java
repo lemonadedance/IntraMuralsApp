@@ -15,6 +15,9 @@ public interface RegistrationService {
     ImUser updateImUser(ImUser imUser);
     ImUser createUser(ImUser imUser);
     List<TeamRequest> getAllTeamRequests();
+
     TeamRequest createRequest(TeamRequest teamRequest);
+    TeamRequest approveRequest(int TeamRequest);
+    TeamRequest denyRequest(int TeamRequest);
 
 }

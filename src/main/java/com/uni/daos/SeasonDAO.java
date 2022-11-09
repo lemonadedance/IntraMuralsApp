@@ -64,4 +64,9 @@ public class SeasonDAO implements CrudDAO<Season> {
         }
 
     }
+
+    @Override
+    public void update(Season season) {
+
+    }
 }

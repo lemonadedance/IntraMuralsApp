@@ -104,4 +104,9 @@ public class UserDAO implements CrudDAO<ImUser> {
             throw new DatabaseConnectionException();
         }
     }
+
+    @Override
+    public void update(ImUser imUser) {
+
+    }
 }
