@@ -13,21 +13,27 @@ import io.swagger.v3.oas.models.info.Info;
 import okhttp3.Response;
 import org.junit.jupiter.api.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserIntegrationTests {
     @BeforeEach
-    public void populateDatabase() {
-        ConnectionUtil.populateH2Database(ConnectionUtil.getConnection());
+    public void populateDatabase() throws SQLException {
+        try (Connection conn = ConnectionUtil.getConnection()) {
+            ConnectionUtil.populateH2Database(conn);
+        }
     }
 
     @AfterEach
-    public void clearDatabase() {
-        ConnectionUtil.clearH2Database(ConnectionUtil.getConnection());
+    public void clearDatabase() throws SQLException {
+        try (Connection conn = ConnectionUtil.getConnection()) {
+            ConnectionUtil.clearH2Database(conn);
+        }
     }
-    
+
     @Test
     public void demo() {
         JavalinTest.test((app, client) -> {
