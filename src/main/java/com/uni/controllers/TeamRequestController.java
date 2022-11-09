@@ -10,20 +10,20 @@ import io.javalin.http.Context;
 
 public class TeamRequestController {
 
-    private static RegistrationService registrationService = new RegistrationServiceImpl(
-            TeamDAO.getSingleton(),
-            UserDAO.getSingleton(),
-            TeamRequestDAO.getSingleton()
-    );
+    private RegistrationService registrationService;
 
-    public static void createTeamRequest(Context context){
+    public TeamRequestController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
+    }
+
+    public void createTeamRequest(Context context){
         TeamRequest teamRequest = context.bodyAsClass(TeamRequest.class);
         context.status(201);
         TeamRequest savedRequest = registrationService.createRequest(teamRequest);
         context.json(savedRequest);
     }
 
-    public static void getAllTeamRequests(Context context){
+    public void getAllTeamRequests(Context context){
         context.json(registrationService.getAllTeamRequests());
     }
 }

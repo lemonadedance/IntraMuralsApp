@@ -3,7 +3,12 @@ package dev.tran.integrationtest;
 import com.uni.controllers.SchedulingController;
 import com.uni.controllers.TeamController;
 import com.uni.controllers.UserController;
+import com.uni.daos.*;
 import com.uni.datautils.ConnectionUtil;
+import com.uni.services.RegistrationService;
+import com.uni.services.RegistrationServiceImpl;
+import com.uni.services.SchedulingService;
+import com.uni.services.SchedulingServiceImpl;
 import io.javalin.Javalin;
 import io.javalin.plugin.openapi.OpenApiOptions;
 import io.javalin.plugin.openapi.OpenApiPlugin;
@@ -31,7 +36,27 @@ public class UserIntegrationTests {
     @Test
     public void demo() {
         JavalinTest.test((app, client) -> {
-            app.post("/login", UserController::login);
+
+            //DAOs
+            GameDAO gameDAO = GameDAO.getSingleton();
+            SeasonDAO seasonDAO = SeasonDAO.getSingleton();
+            TeamDAO teamDAO = TeamDAO.getSingleton();
+            TeamRequestDAO teamRequestDAO = TeamRequestDAO.getSingleton();
+            UserDAO userDAO = UserDAO.getSingleton();
+            VenueDAO venueDAO = VenueDAO.getSingleton();
+
+            //Services
+            RegistrationService registrationService = new RegistrationServiceImpl(teamDAO,userDAO,teamRequestDAO);
+            SchedulingService schedulingService = new SchedulingServiceImpl(venueDAO,gameDAO,seasonDAO);
+
+
+            //Controllers
+            SchedulingController schedulingController = new SchedulingController(schedulingService);
+            TeamController teamController = new TeamController(registrationService);
+            UserController userController = new UserController(registrationService);
+
+
+            app.post("/login", userController::login);
 
             Map<String, String> requestJson = new HashMap<>();
             requestJson.put("username", "testing123");
