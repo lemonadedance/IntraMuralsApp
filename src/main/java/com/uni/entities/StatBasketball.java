@@ -12,6 +12,9 @@ public class StatBasketball {
     private int assists;
     private int fouls;
 
+    public StatBasketball() {
+    }
+
     public StatBasketball(int statBasketballId, int userId, int gameId, String teamName, int points, int rebounds, int assists, int fouls) {
         this.statBasketballId = statBasketballId;
         this.userId = userId;
