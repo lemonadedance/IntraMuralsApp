@@ -1,11 +1,7 @@
 package com.uni.controllers;
 
-import com.uni.daos.TeamDAO;
-import com.uni.daos.TeamRequestDAO;
-import com.uni.daos.UserDAO;
 import com.uni.entities.TeamRequest;
 import com.uni.services.RegistrationService;
-import com.uni.services.RegistrationServiceImpl;
 import io.javalin.http.Context;
 
 public class TeamRequestController {
@@ -24,7 +20,14 @@ public class TeamRequestController {
     }
 
     public void getAllTeamRequests(Context context){
-        context.json(registrationService.getAllTeamRequests());
+        String team = context.queryParam("team");
+
+        if(team == null){
+            context.json(registrationService.getAllTeamRequests());
+        }else{
+            context.json(registrationService.filterTeamRequestsByTeam(team));
+        }
+
     }
 
     public void approveRequest(Context context){

@@ -4,6 +4,7 @@ import com.uni.daos.TeamDAO;
 import com.uni.daos.TeamRequestDAO;
 import com.uni.daos.UserDAO;
 import com.uni.dtos.LoginCredentials;
+import com.uni.dtos.PlayerCard;
 import com.uni.entities.ImUser;
 import com.uni.entities.Team;
 import com.uni.entities.TeamRequest;
@@ -11,6 +12,7 @@ import com.uni.exceptions.PasswordMismatchException;
 import com.uni.exceptions.ResourceNotFoundException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RegistrationServiceImpl implements RegistrationService{
 
@@ -45,18 +47,14 @@ public class RegistrationServiceImpl implements RegistrationService{
     }
 
     @Override
-    public ImUser updateImUser(ImUser imUser) {
-        return null;
-    }
-
-    @Override
-    public ImUser createUser(ImUser imUser) {
-        return null;
-    }
-
-    @Override
     public List<TeamRequest> getAllTeamRequests() {
         return this.teamRequestDAO.findAll();
+    }
+
+    @Override
+    public List<TeamRequest> filterTeamRequestsByTeam(String team) {
+
+        return this.teamRequestDAO.findAll().stream().filter(t -> t.getTeamName().equals(team)).collect(Collectors.toList());
     }
 
     @Override
@@ -101,4 +99,6 @@ public class RegistrationServiceImpl implements RegistrationService{
 
         return teamRequest;
     }
+
+
 }

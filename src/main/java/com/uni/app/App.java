@@ -1,14 +1,8 @@
 package com.uni.app;
 
-import com.uni.controllers.SchedulingController;
-import com.uni.controllers.TeamController;
-import com.uni.controllers.TeamRequestController;
-import com.uni.controllers.UserController;
+import com.uni.controllers.*;
 import com.uni.daos.*;
-import com.uni.services.RegistrationService;
-import com.uni.services.RegistrationServiceImpl;
-import com.uni.services.SchedulingService;
-import com.uni.services.SchedulingServiceImpl;
+import com.uni.services.*;
 import io.javalin.Javalin;
 import java.io.IOException;
 
@@ -27,10 +21,12 @@ public class App {
         TeamRequestDAO teamRequestDAO = TeamRequestDAO.getSingleton();
         UserDAO userDAO = UserDAO.getSingleton();
         VenueDAO venueDAO = VenueDAO.getSingleton();
+        StatBasketballDAO statBasketballDAO = StatBasketballDAO.getSingleton();
 
         //Services
         RegistrationService registrationService = new RegistrationServiceImpl(teamDAO,userDAO,teamRequestDAO);
         SchedulingService schedulingService = new SchedulingServiceImpl(venueDAO,gameDAO,seasonDAO);
+        StatisticsService statisticsService = new StatisticsServiceImpl(statBasketballDAO,userDAO);
 
 
         //Controllers
@@ -38,6 +34,7 @@ public class App {
         TeamController teamController = new TeamController(registrationService);
         UserController userController = new UserController(registrationService);
         TeamRequestController teamRequestController = new TeamRequestController(registrationService);
+        StatisticsController statisticsController = new StatisticsController(statisticsService);
 
 
         app.post("/login", userController::login);
@@ -56,6 +53,9 @@ public class App {
         app.post("/teamrequests",teamRequestController::createTeamRequest);
         app.patch("/teamrequests/{id}/approve",teamRequestController::approveRequest);
         app.patch("/teamrequests/{id}/deny",teamRequestController::denyRequest);
+
+
+        app.get("/playercards/{id}", statisticsController::getPLayerCardById);
 
 
         app.start();
