@@ -15,6 +15,8 @@ public interface RegistrationService {
     ImUser getUserFromLoginCredentials(LoginCredentials loginCredentials);
 
 
+    ImUser registerUser(ImUser registrationInfo);
+
     List<TeamRequest> getAllTeamRequests();
     List<TeamRequest> filterTeamRequestsByTeam(String team);
     TeamRequest createRequest(TeamRequest teamRequest);

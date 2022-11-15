@@ -18,6 +18,15 @@ public class UserController {
         this.registrationService = registrationService;
     }
 
+    public void register(Context ctx) {
+        ImUser registrationInfo = ctx.bodyAsClass(ImUser.class);
+
+        ImUser registeredUser = registrationService.registerUser(registrationInfo);
+
+        ctx.status(201);
+        ctx.json(registeredUser);
+    }
+
     public void login(Context ctx){
         LoginCredentials credentials = ctx.bodyAsClass(LoginCredentials.class);
         ImUser user = registrationService.getUserFromLoginCredentials(credentials);
@@ -25,6 +34,9 @@ public class UserController {
         ctx.json(user);
     };
 
+    public void logout(Context ctx) {
+        ctx.req.getSession().invalidate();
+    }
 
 
 }
