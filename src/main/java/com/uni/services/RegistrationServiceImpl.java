@@ -4,7 +4,6 @@ import com.uni.daos.TeamDAO;
 import com.uni.daos.TeamRequestDAO;
 import com.uni.daos.UserDAO;
 import com.uni.dtos.LoginCredentials;
-import com.uni.dtos.PlayerCard;
 import com.uni.entities.ImUser;
 import com.uni.entities.Team;
 import com.uni.entities.TeamRequest;
@@ -26,6 +25,9 @@ public class RegistrationServiceImpl implements RegistrationService{
         this.teamRequestDAO = teamRequestDAO;
     }
 
+    /*
+        Team
+    */
     @Override
     public Team registerTeam(Team team) {
         return this.teamDAO.save(team);
@@ -36,6 +38,9 @@ public class RegistrationServiceImpl implements RegistrationService{
         return this.teamDAO.findAll();
     }
 
+    /*
+        User
+     */
     @Override
     public ImUser getUserFromLoginCredentials(LoginCredentials loginCredentials) {
         ImUser imUser = this.userDao.getByUsername(loginCredentials.getUsername());
@@ -46,6 +51,16 @@ public class RegistrationServiceImpl implements RegistrationService{
         return imUser;
     }
 
+    @Override
+    public ImUser registerUser(ImUser registrationInfo) {
+        ImUser user = userDao.save(registrationInfo);
+
+        return user;
+    }
+
+    /*
+        Team Requests
+     */
     @Override
     public List<TeamRequest> getAllTeamRequests() {
         return this.teamRequestDAO.findAll();

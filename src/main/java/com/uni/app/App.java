@@ -38,6 +38,8 @@ public class App {
 
 
         app.post("/login", userController::login);
+        app.post("/logout", userController::logout);
+        app.post("/users", userController::register);
 
         app.post("/teams", teamController::registerTeam);
         app.get("/teams",teamController::retrieveAllTeams);
@@ -58,7 +60,7 @@ public class App {
         app.get("/playercards/{id}", statisticsController::getPLayerCardById);
 
 
-        app.start();
+        app.start(7000);
 
     }
 }
