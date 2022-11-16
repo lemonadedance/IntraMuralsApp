@@ -31,6 +31,13 @@ public class SchedulingController {
         context.json(scheduledGame);
     }
 
+    public void scheduleSeason(Context context) {
+        Season incomingSeason = context.bodyAsClass(Season.class);
+        Season scheduledSeason = schedulingService.scheduleSeason(incomingSeason);
+        context.status(201);
+        context.json(scheduledSeason);
+    }
+
     public void getAllGames(Context context){
         context.json(schedulingService.getAllGames());
     }

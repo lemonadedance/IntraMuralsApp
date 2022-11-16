@@ -12,6 +12,5 @@ public interface SchedulingService {
     List<Game> getAllGames();
     List<Season> getAllSeasons();
     Game scheduleGame(Game game);
-
-
+    Season scheduleSeason(Season incomingSeason);
 }

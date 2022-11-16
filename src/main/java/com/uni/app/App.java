@@ -43,19 +43,20 @@ public class App {
         app.put("/users", userController::update);
 
         app.post("/teams", teamController::registerTeam);
-        app.get("/teams",teamController::retrieveAllTeams);
+        app.get("/teams", teamController::retrieveAllTeams);
 
         app.get("/venues", schedulingController::getAllVenues);
 
-        app.post("/games",schedulingController::scheduleGame);
-        app.get("/games",schedulingController::getAllGames);
+        app.post("/games", schedulingController::scheduleGame);
+        app.get("/games", schedulingController::getAllGames);
 
-        app.get("/seasons",schedulingController::getAllSeasons);
+        app.get("/seasons", schedulingController::getAllSeasons);
+        app.post("/seasons", schedulingController::scheduleSeason);
 
-        app.get("/teamrequests",teamRequestController::getAllTeamRequests);
-        app.post("/teamrequests",teamRequestController::createTeamRequest);
-        app.patch("/teamrequests/{id}/approve",teamRequestController::approveRequest);
-        app.patch("/teamrequests/{id}/deny",teamRequestController::denyRequest);
+        app.get("/teamrequests", teamRequestController::getAllTeamRequests);
+        app.post("/teamrequests", teamRequestController::createTeamRequest);
+        app.patch("/teamrequests/{id}/approve", teamRequestController::approveRequest);
+        app.patch("/teamrequests/{id}/deny", teamRequestController::denyRequest);
 
 
         app.get("/playercards/{id}", statisticsController::getPLayerCardById);
