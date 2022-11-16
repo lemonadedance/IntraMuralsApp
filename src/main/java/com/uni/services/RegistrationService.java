@@ -19,11 +19,14 @@ public interface RegistrationService {
 
     ImUser updateUser(ImUser updateInfo);
 
+    List<ImUser> retrieveAllUsers();
+
     List<TeamRequest> getAllTeamRequests();
     List<TeamRequest> filterTeamRequestsByTeam(String team);
     TeamRequest createRequest(TeamRequest teamRequest);
     TeamRequest approveRequest(int TeamRequest);
     TeamRequest denyRequest(int TeamRequest);
-    
 
+
+    void updateRole(int id, String role);
 }

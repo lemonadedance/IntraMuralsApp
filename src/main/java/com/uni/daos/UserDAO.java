@@ -153,4 +153,18 @@ public class UserDAO implements CrudDAO<ImUser> {
         }
 
     }
+
+    public void updateRole(int id, String role) {
+        try(Connection connection = ConnectionUtil.getConnection()) {
+            String sql = "update im_user set role = ?::im_role where user_id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, role);
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new DatabaseConnectionException();
+        }
+    }
 }
