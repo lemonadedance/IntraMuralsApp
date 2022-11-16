@@ -53,9 +53,17 @@ public class RegistrationServiceImpl implements RegistrationService{
 
     @Override
     public ImUser registerUser(ImUser registrationInfo) {
+        registrationInfo.setRole("player");
         ImUser user = userDao.save(registrationInfo);
 
         return user;
+    }
+
+    @Override
+    public ImUser updateUser(ImUser updateInfo) {
+        userDao.update(updateInfo);
+
+        return updateInfo;
     }
 
     /*
