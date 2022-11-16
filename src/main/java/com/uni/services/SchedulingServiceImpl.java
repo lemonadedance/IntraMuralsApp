@@ -40,4 +40,9 @@ public class SchedulingServiceImpl implements SchedulingService{
     public Game scheduleGame(Game game) {
         return this.gameDAO.save(game);
     }
+
+    @Override
+    public Season scheduleSeason(Season incomingSeason) {
+        return this.seasonDAO.save(incomingSeason);
+    }
 }
