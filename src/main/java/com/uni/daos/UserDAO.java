@@ -108,7 +108,23 @@ public class UserDAO implements CrudDAO<ImUser> {
 
     @Override
     public void update(ImUser imUser) {
+        try(Connection connection = ConnectionUtil.getConnection()) {
+            String sql = "update im_user set username = ?, password = ?, role = ?::im_role, height = ?, weight = ?, profile_pic = ?, display_biometrics = ? where user_id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, imUser.getUsername());
+            ps.setString(2, imUser.getPassword());
+            ps.setString(3, imUser.getRole());
+            ps.setInt(4, imUser.getHeightInches());
+            ps.setInt(5, imUser.getWeightLbs());
+            ps.setString(6, imUser.getProfilePic());
+            ps.setBoolean(7, imUser.isHideBiometrics());
+            ps.setInt(8, imUser.getUserId());
 
+            ps.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new DatabaseConnectionException();
+        }
     }
 
     public ImUser findById(int id){

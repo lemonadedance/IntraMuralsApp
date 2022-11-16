@@ -40,6 +40,7 @@ public class App {
         app.post("/login", userController::login);
         app.post("/logout", userController::logout);
         app.post("/users", userController::register);
+        app.put("/users", userController::update);
 
         app.post("/teams", teamController::registerTeam);
         app.get("/teams",teamController::retrieveAllTeams);
