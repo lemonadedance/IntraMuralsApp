@@ -41,6 +41,8 @@ public class App {
         app.post("/logout", userController::logout);
         app.post("/users", userController::register);
         app.put("/users", userController::update);
+        app.get("/users", userController::retrieveAllUsers);
+        app.patch("/users/{id}/role", userController::updateRole);
 
         app.post("/teams", teamController::registerTeam);
         app.get("/teams", teamController::retrieveAllTeams);

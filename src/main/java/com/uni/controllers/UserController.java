@@ -10,12 +10,28 @@ import com.uni.services.RegistrationServiceImpl;
 import io.javalin.http.Context;
 import io.javalin.plugin.openapi.annotations.*;
 
+import java.util.List;
+
 public class UserController {
 
     private RegistrationService registrationService;
 
     public UserController(RegistrationService registrationService) {
         this.registrationService = registrationService;
+    }
+
+    public void retrieveAllUsers(Context ctx) {
+        List<ImUser> users = registrationService.retrieveAllUsers();
+        ctx.json(users);
+    }
+
+    public void updateRole(Context ctx) {
+        int id = Integer.parseInt(ctx.pathParam("id"));
+        ImUser roleInformation = ctx.bodyAsClass(ImUser.class);
+        String role = roleInformation.getRole();
+
+        registrationService.updateRole(id, role);
+        ctx.status(204);
     }
 
     public void register(Context ctx) {

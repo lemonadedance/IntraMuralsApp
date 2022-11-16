@@ -66,6 +66,16 @@ public class RegistrationServiceImpl implements RegistrationService{
         return updateInfo;
     }
 
+    @Override
+    public void updateRole(int id, String role) {
+        userDao.updateRole(id, role);
+    }
+
+    @Override
+    public List<ImUser> retrieveAllUsers() {
+        return this.userDao.findAll();
+    }
+
     /*
         Team Requests
      */
@@ -122,6 +132,5 @@ public class RegistrationServiceImpl implements RegistrationService{
 
         return teamRequest;
     }
-
 
 }
