@@ -22,12 +22,13 @@ public class App {
         UserDAO userDAO = UserDAO.getSingleton();
         VenueDAO venueDAO = VenueDAO.getSingleton();
         StatBasketballDAO statBasketballDAO = StatBasketballDAO.getSingleton();
+        RefereeLookupDAO refereeLookupDAO = RefereeLookupDAO.getSingleton();
 
         //Services
         RegistrationService registrationService = new RegistrationServiceImpl(teamDAO,userDAO,teamRequestDAO);
         SchedulingService schedulingService = new SchedulingServiceImpl(venueDAO,gameDAO,seasonDAO);
         StatisticsService statisticsService = new StatisticsServiceImpl(statBasketballDAO,userDAO);
-
+        RefereeLookupService refereeLookupService = new RefereeLookupImpl(refereeLookupDAO);
 
         //Controllers
         SchedulingController schedulingController = new SchedulingController(schedulingService);
@@ -35,7 +36,7 @@ public class App {
         UserController userController = new UserController(registrationService);
         TeamRequestController teamRequestController = new TeamRequestController(registrationService);
         StatisticsController statisticsController = new StatisticsController(statisticsService);
-
+        RefereeLookupController refereeLookupController = new RefereeLookupController(refereeLookupService);
 
         app.post("/login", userController::login);
         app.post("/logout", userController::logout);
@@ -63,6 +64,7 @@ public class App {
 
         app.get("/playercards/{id}", statisticsController::getPLayerCardById);
 
+        app.get("/referee_and_games_lookup", refereeLookupController::retrieveAllRefereeAndGames);
 
         app.start(7000);
 
