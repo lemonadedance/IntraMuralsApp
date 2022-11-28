@@ -4,6 +4,8 @@ import com.uni.entities.TeamRequest;
 import com.uni.services.RegistrationService;
 import io.javalin.http.Context;
 
+import java.util.NoSuchElementException;
+
 public class TeamRequestController {
 
     private RegistrationService registrationService;
@@ -21,11 +23,18 @@ public class TeamRequestController {
 
     public void getAllTeamRequests(Context context){
         String team = context.queryParam("team");
+        String userId = context.queryParam("userId");
 
-        if(team == null){
+        if(team == null && userId == null){
             context.json(registrationService.getAllTeamRequests());
-        }else{
+        } else if (team != null){
             context.json(registrationService.filterTeamRequestsByTeam(team));
+        } else if (userId != null) {
+            try {
+                context.json(registrationService.filterTeamRequestsByPlayer(Integer.parseInt(userId)));
+            } catch (NoSuchElementException e) {
+                context.status(404);
+            }
         }
 
     }
