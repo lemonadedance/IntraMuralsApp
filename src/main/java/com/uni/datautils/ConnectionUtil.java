@@ -25,7 +25,7 @@ public class ConnectionUtil {
 
                 return conn;
             } else {
-                Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?user=postgres&password=mysecretpassword");
+                Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?user=postgres&password=password");
                 return conn;
             }
         } catch (SQLException | IOException e) {

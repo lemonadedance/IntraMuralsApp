@@ -2,6 +2,7 @@ package com.uni.app;
 
 import com.uni.controllers.*;
 import com.uni.daos.*;
+import com.uni.entities.Game;
 import com.uni.services.*;
 import io.javalin.Javalin;
 import java.io.IOException;
@@ -22,12 +23,13 @@ public class App {
         UserDAO userDAO = UserDAO.getSingleton();
         VenueDAO venueDAO = VenueDAO.getSingleton();
         StatBasketballDAO statBasketballDAO = StatBasketballDAO.getSingleton();
+        GameRequestDAO gameRequestDAO = GameRequestDAO.getSingleton();
 
         //Services
         RegistrationService registrationService = new RegistrationServiceImpl(teamDAO,userDAO,teamRequestDAO);
         SchedulingService schedulingService = new SchedulingServiceImpl(venueDAO,gameDAO,seasonDAO);
         StatisticsService statisticsService = new StatisticsServiceImpl(statBasketballDAO,userDAO);
-
+        GameRequestService gameRequestService = new GameRequestImpl(gameRequestDAO);
 
         //Controllers
         SchedulingController schedulingController = new SchedulingController(schedulingService);
@@ -35,7 +37,7 @@ public class App {
         UserController userController = new UserController(registrationService);
         TeamRequestController teamRequestController = new TeamRequestController(registrationService);
         StatisticsController statisticsController = new StatisticsController(statisticsService);
-
+        GameRequestController gameRequestController = new GameRequestController(gameRequestService);
 
         app.post("/login", userController::login);
         app.post("/logout", userController::logout);
@@ -63,6 +65,8 @@ public class App {
 
         app.get("/playercards/{id}", statisticsController::getPLayerCardById);
 
+        app.get("/referee-and-games-lookup", gameRequestController::retrieveAllRefereeAndGames);
+        app.post("/gamerequests/apply", gameRequestController::createGameRequest);
 
         app.start(7000);
 

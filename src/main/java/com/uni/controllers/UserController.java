@@ -1,14 +1,9 @@
 package com.uni.controllers;
 
-import com.uni.daos.TeamDAO;
-import com.uni.daos.TeamRequestDAO;
-import com.uni.daos.UserDAO;
-import com.uni.entities.ImUser;
 import com.uni.dtos.LoginCredentials;
+import com.uni.entities.ImUser;
 import com.uni.services.RegistrationService;
-import com.uni.services.RegistrationServiceImpl;
 import io.javalin.http.Context;
-import io.javalin.plugin.openapi.annotations.*;
 
 import java.util.List;
 
