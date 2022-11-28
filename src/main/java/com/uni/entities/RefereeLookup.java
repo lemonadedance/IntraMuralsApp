@@ -22,5 +22,5 @@ public class RefereeLookup {
 
     public int getGameId() { return gameId; }
 
-    public void setGameId(int setGameId) { this.gameId = gameId;}
+    public void setGameId(int gameId) { this.gameId = gameId;}
 }
