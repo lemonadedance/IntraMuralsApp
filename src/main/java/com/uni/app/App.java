@@ -67,7 +67,7 @@ public class App {
         app.get("/playercards/{id}", statisticsController::getPLayerCardById);
 
         app.get("/referee-and-games-lookup", gameRequestController::retrieveAllRefereeAndGames);
-        app.post("/gamerequests/apply", gameRequestController::createGameRequest);
+        app.post("/game-requests/apply", gameRequestController::createGameRequest);
 
         app.start(7000);
 
