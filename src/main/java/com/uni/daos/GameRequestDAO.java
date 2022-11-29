@@ -44,7 +44,7 @@ public class GameRequestDAO implements CrudDAO<GameRequest> {
     @Override
     public List<GameRequest> findAll() {
         try(Connection connection = ConnectionUtil.getConnection()){
-            String sql = "select * from game_requests";
+            String sql = "select game_requests.*, game.venue, game.season from game_requests left join game on game_requests.game=game.game_id";
             List<GameRequest> gameRequests = new ArrayList<>();
 
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -55,6 +55,8 @@ public class GameRequestDAO implements CrudDAO<GameRequest> {
                 gameRequest.setGameRequestId(rs.getInt("game_request_id"));
                 gameRequest.setGameId(rs.getInt("game"));
                 gameRequest.setUserId(rs.getInt("user_id"));
+                gameRequest.setVenue(rs.getString("venue"));
+                gameRequest.setSeason(rs.getString("season"));
                 gameRequests.add(gameRequest);
             }
             return gameRequests;
