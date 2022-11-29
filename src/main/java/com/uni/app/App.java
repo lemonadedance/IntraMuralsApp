@@ -62,7 +62,6 @@ public class App {
         app.patch("/teamrequests/{id}/approve", teamRequestController::approveRequest);
         app.patch("/teamrequests/{id}/deny", teamRequestController::denyRequest);
 
-
         app.get("/playercards/{id}", statisticsController::getPLayerCardById);
 
         app.get("/referee-and-games-lookup", gameRequestController::retrieveAllRefereeAndGames);

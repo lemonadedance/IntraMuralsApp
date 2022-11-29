@@ -26,7 +26,6 @@ public interface RegistrationService {
     TeamRequest createRequest(TeamRequest teamRequest);
     TeamRequest approveRequest(int TeamRequest);
     TeamRequest denyRequest(int TeamRequest);
-
-
     void updateRole(int id, String role);
+    List<TeamRequest> filterTeamRequestsByPlayer(int parseInt);
 }
