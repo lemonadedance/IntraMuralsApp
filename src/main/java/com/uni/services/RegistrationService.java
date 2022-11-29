@@ -28,4 +28,5 @@ public interface RegistrationService {
     TeamRequest denyRequest(int TeamRequest);
     void updateRole(int id, String role);
     List<TeamRequest> filterTeamRequestsByPlayer(int parseInt);
+    Team getTeamByTeamName(String teamName);
 }
