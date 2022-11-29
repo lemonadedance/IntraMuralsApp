@@ -41,6 +41,23 @@ public class GameRequestDAO implements CrudDAO<GameRequest> {
         }
     }
 
+
+    public GameRequest delete(int gameId, int userId){
+        try(Connection connection = ConnectionUtil.getConnection()){
+            String sql = "delete from game_requests where game = ? and user_id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, gameId);
+            ps.setInt(2, userId);
+
+            ps.execute();
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new DatabaseConnectionException();
+        }
+        return null;
+    }
+
     @Override
     public List<GameRequest> findAll() {
         try(Connection connection = ConnectionUtil.getConnection()){
