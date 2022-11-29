@@ -77,6 +77,11 @@ public class RegistrationServiceImpl implements RegistrationService{
     }
 
     @Override
+    public Team getTeamByTeamName(String teamName) {
+        return this.teamDAO.findAll().stream().filter(t -> t.getName().equals(teamName)).findFirst().get();
+    }
+
+    @Override
     public List<ImUser> retrieveAllUsers() {
         return this.userDao.findAll();
     }

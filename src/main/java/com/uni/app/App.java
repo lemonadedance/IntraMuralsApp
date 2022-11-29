@@ -48,6 +48,7 @@ public class App {
 
         app.post("/teams", teamController::registerTeam);
         app.get("/teams", teamController::retrieveAllTeams);
+        app.get("/teams/{teamname}", teamController::retrieveTeamByTeamName);
 
         app.get("/venues", schedulingController::getAllVenues);
 
