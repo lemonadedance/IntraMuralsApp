@@ -1,6 +1,5 @@
 package com.uni.controllers;
 
-import com.uni.entities.Game;
 import com.uni.entities.GameRequest;
 import com.uni.services.GameRequestService;
 import io.javalin.http.Context;
