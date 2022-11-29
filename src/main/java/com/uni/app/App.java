@@ -68,6 +68,7 @@ public class App {
 
         app.get("/referee-and-games-lookup", gameRequestController::retrieveAllRefereeAndGames);
         app.post("/game-requests/apply", gameRequestController::createGameRequest);
+        app.delete("/game-requests/delete", gameRequestController::deleteGameRequest);
 
         app.start(7000);
 

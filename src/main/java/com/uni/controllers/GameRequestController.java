@@ -16,5 +16,12 @@ public class GameRequestController {
         GameRequest savedGameRequest = gameRequestService.createRequest(gameRequest);
         context.json(savedGameRequest);
     }
+
+    public void deleteGameRequest(Context context){
+        GameRequest gameRequest = context.bodyAsClass(GameRequest.class);
+        context.status(201);
+        GameRequest deleteGameRequest = gameRequestService.deleteRequest(gameRequest.getGameId(), gameRequest.getUserId());
+        context.json(deleteGameRequest);
+    }
     public void retrieveAllRefereeAndGames(Context context) { context.json(gameRequestService.getAllGamesAndReferees()); }
 }
