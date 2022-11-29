@@ -72,6 +72,16 @@ public class RegistrationServiceImpl implements RegistrationService{
     }
 
     @Override
+    public List<TeamRequest> filterTeamRequestsByPlayer(int playerId) {
+        return this.teamRequestDAO.findAll().stream().filter(t -> t.getRequesterId() == playerId).collect(Collectors.toList());
+    }
+
+    @Override
+    public Team getTeamByTeamName(String teamName) {
+        return this.teamDAO.findAll().stream().filter(t -> t.getName().equals(teamName)).findFirst().get();
+    }
+
+    @Override
     public List<ImUser> retrieveAllUsers() {
         return this.userDao.findAll();
     }
@@ -86,7 +96,6 @@ public class RegistrationServiceImpl implements RegistrationService{
 
     @Override
     public List<TeamRequest> filterTeamRequestsByTeam(String team) {
-
         return this.teamRequestDAO.findAll().stream().filter(t -> t.getTeamName().equals(team)).collect(Collectors.toList());
     }
 

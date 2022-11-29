@@ -41,10 +41,27 @@ public class GameRequestDAO implements CrudDAO<GameRequest> {
         }
     }
 
+
+    public GameRequest delete(int gameId, int userId){
+        try(Connection connection = ConnectionUtil.getConnection()){
+            String sql = "delete from game_requests where game = ? and user_id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, gameId);
+            ps.setInt(2, userId);
+
+            ps.execute();
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new DatabaseConnectionException();
+        }
+        return null;
+    }
+
     @Override
     public List<GameRequest> findAll() {
         try(Connection connection = ConnectionUtil.getConnection()){
-            String sql = "select * from game_requests";
+            String sql = "select game_requests.*, game.venue, game.season from game_requests left join game on game_requests.game=game.game_id";
             List<GameRequest> gameRequests = new ArrayList<>();
 
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -55,6 +72,8 @@ public class GameRequestDAO implements CrudDAO<GameRequest> {
                 gameRequest.setGameRequestId(rs.getInt("game_request_id"));
                 gameRequest.setGameId(rs.getInt("game"));
                 gameRequest.setUserId(rs.getInt("user_id"));
+                gameRequest.setVenue(rs.getString("venue"));
+                gameRequest.setSeason(rs.getString("season"));
                 gameRequests.add(gameRequest);
             }
             return gameRequests;

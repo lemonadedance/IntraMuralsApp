@@ -23,4 +23,10 @@ public class TeamController {
     public void retrieveAllTeams(Context context){
         context.json(registrationService.getAllTeams());
     }
+
+    public void retrieveTeamByTeamName(Context context) {
+        String teamName = context.pathParam("teamname");
+
+        context.json(registrationService.getTeamByTeamName(teamName));
+    }
 }

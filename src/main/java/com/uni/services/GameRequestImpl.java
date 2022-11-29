@@ -17,5 +17,10 @@ public class GameRequestImpl implements GameRequestService{
     }
 
     @Override
+    public GameRequest deleteRequest(int gameId, int userId) {
+        return this.gameRequestDAO.delete(gameId, userId);
+    }
+
+    @Override
     public List<GameRequest> getAllGamesAndReferees() { return this.gameRequestDAO.findAll(); }
 }

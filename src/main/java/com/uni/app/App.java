@@ -2,7 +2,6 @@ package com.uni.app;
 
 import com.uni.controllers.*;
 import com.uni.daos.*;
-import com.uni.entities.Game;
 import com.uni.services.*;
 import io.javalin.Javalin;
 import java.io.IOException;
@@ -48,6 +47,7 @@ public class App {
 
         app.post("/teams", teamController::registerTeam);
         app.get("/teams", teamController::retrieveAllTeams);
+        app.get("/teams/{teamname}", teamController::retrieveTeamByTeamName);
 
         app.get("/venues", schedulingController::getAllVenues);
 
@@ -62,11 +62,11 @@ public class App {
         app.patch("/teamrequests/{id}/approve", teamRequestController::approveRequest);
         app.patch("/teamrequests/{id}/deny", teamRequestController::denyRequest);
 
-
         app.get("/playercards/{id}", statisticsController::getPLayerCardById);
 
         app.get("/referee-and-games-lookup", gameRequestController::retrieveAllRefereeAndGames);
-        app.post("/gamerequests/apply", gameRequestController::createGameRequest);
+        app.post("/game-requests/apply", gameRequestController::createGameRequest);
+        app.delete("/game-requests/delete", gameRequestController::deleteGameRequest);
 
         app.start(7000);
 
