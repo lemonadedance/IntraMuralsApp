@@ -22,7 +22,7 @@ public class UserDAO implements CrudDAO<ImUser> {
         return userDAO;
     }
 
-    private UserDAO() {}
+    public UserDAO() {}
 
     public ImUser getByUsername(String username){
         try(Connection connection = ConnectionUtil.getConnection()) {

@@ -20,7 +20,7 @@ public class TeamRequestDAO implements CrudDAO<TeamRequest>{
         return teamRequestDAO;
     }
 
-    private TeamRequestDAO() {}
+    public TeamRequestDAO() {}
 
     @Override
     public TeamRequest save(TeamRequest teamRequest) {

@@ -25,7 +25,7 @@ public class TeamDAO implements CrudDAO<Team> {
         return teamDAO;
     }
 
-    private TeamDAO() {}
+    public TeamDAO() {}
 
 
     @Override
