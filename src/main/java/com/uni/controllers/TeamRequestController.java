@@ -30,13 +30,8 @@ public class TeamRequestController {
         } else if (team != null){
             context.json(registrationService.filterTeamRequestsByTeam(team));
         } else if (userId != null) {
-            try {
-                context.json(registrationService.filterTeamRequestsByPlayer(Integer.parseInt(userId)));
-            } catch (NoSuchElementException e) {
-                context.status(404);
-            }
+            context.json(registrationService.filterTeamRequestsByPlayer(Integer.parseInt(userId)));
         }
-
     }
 
     public void approveRequest(Context context){

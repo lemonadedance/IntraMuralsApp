@@ -72,8 +72,8 @@ public class RegistrationServiceImpl implements RegistrationService{
     }
 
     @Override
-    public TeamRequest filterTeamRequestsByPlayer(int playerId) {
-        return this.teamRequestDAO.findAll().stream().filter(t -> t.getRequesterId() == playerId).findFirst().get();
+    public List<TeamRequest> filterTeamRequestsByPlayer(int playerId) {
+        return this.teamRequestDAO.findAll().stream().filter(t -> t.getRequesterId() == playerId).collect(Collectors.toList());
     }
 
     @Override
