@@ -170,9 +170,11 @@ public class UserDAO implements CrudDAO<ImUser> {
 
     public List<ImUser> retrieveUserByTeam(String teamName) {
         try(Connection connection = ConnectionUtil.getConnection()) {
-            String sql = "SELECT iu.* FROM team_requests tr INNER JOIN im_user iu ON tr.user_id = iu.user_id WHERE tr.team = ?";
+            String sql = "SELECT iu.* FROM team_requests tr INNER JOIN im_user iu ON tr.user_id = iu.user_id WHERE tr.team = ? UNION " +
+                    "select iu.* from team t inner join im_user iu on t.captain = iu.user_id where t.name = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, teamName);
+            ps.setString(2, teamName);
             ResultSet rs = ps.executeQuery();
 
             List<ImUser> users = new ArrayList<>();
