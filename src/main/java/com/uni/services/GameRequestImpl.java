@@ -17,7 +17,7 @@ public class GameRequestImpl implements GameRequestService{
     }
 
     @Override
-    public GameRequest deleteRequest(int gameId, int userId) {
+    public boolean deleteRequest(int gameId, int userId) {
         return this.gameRequestDAO.delete(gameId, userId);
     }
 
