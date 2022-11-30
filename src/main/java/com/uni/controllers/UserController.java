@@ -63,4 +63,9 @@ public class UserController {
     }
 
 
+    public void retrievePlayersByTeam(Context context) {
+        String teamName = context.pathParam("teamname");
+
+        context.json(registrationService.retrievePlayersByTeam(teamName));
+    }
 }

@@ -82,6 +82,11 @@ public class RegistrationServiceImpl implements RegistrationService{
     }
 
     @Override
+    public List<ImUser> retrievePlayersByTeam(String teamName) {
+        return this.userDao.retrieveUserByTeam(teamName);
+    }
+
+    @Override
     public List<ImUser> retrieveAllUsers() {
         return this.userDao.findAll();
     }

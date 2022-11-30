@@ -167,4 +167,37 @@ public class UserDAO implements CrudDAO<ImUser> {
             throw new DatabaseConnectionException();
         }
     }
+
+    public List<ImUser> retrieveUserByTeam(String teamName) {
+        try(Connection connection = ConnectionUtil.getConnection()) {
+            String sql = "SELECT iu.* FROM team_requests tr INNER JOIN im_user iu ON tr.user_id = iu.user_id WHERE tr.team = ? UNION " +
+                    "select iu.* from team t inner join im_user iu on t.captain = iu.user_id where t.name = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, teamName);
+            ps.setString(2, teamName);
+            ResultSet rs = ps.executeQuery();
+
+            List<ImUser> users = new ArrayList<>();
+
+            while(rs.next()) {
+                ImUser user = new ImUser();
+                user.setUserId(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setHeightInches(rs.getInt("height"));
+                user.setWeightLbs(rs.getInt("weight"));
+                user.setProfilePic(rs.getString("profile_pic"));
+                user.setHideBiometrics(rs.getBoolean("display_biometrics"));
+
+                users.add(user);
+            }
+
+            return users;
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new DatabaseConnectionException();
+        }
+    }
 }
