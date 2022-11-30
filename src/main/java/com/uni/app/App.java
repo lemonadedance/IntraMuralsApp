@@ -45,6 +45,7 @@ public class App {
         app.put("/users", userController::update);
         app.get("/users", userController::retrieveAllUsers);
         app.patch("/users/{id}/role", userController::updateRole);
+        app.get("/teams/{teamname}/users", userController::retrievePlayersByTeam);
 
         app.post("/teams", teamController::registerTeam);
         app.get("/teams", teamController::retrieveAllTeams);
