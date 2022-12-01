@@ -7,10 +7,10 @@ import com.uni.entities.ImUser;
 import com.uni.entities.StatBasketball;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class StatisticsServiceImpl implements StatisticsService{
-
 
     private StatBasketballDAO statBasketballDAO;
     private UserDAO userDAO;
@@ -35,5 +35,33 @@ public class StatisticsServiceImpl implements StatisticsService{
         playerCard.setBasketballStats(basketballStat);
 
         return playerCard;
+    }
+
+    @Override
+    public List<StatBasketball> getAllBasketballStatsByGameId(int id) {
+        return statBasketballDAO.findAllByGameId(id);
+    }
+
+    @Override
+    public StatBasketball addOrUpdateBasketballStat(StatBasketball stat) {
+        try {
+            // Check if basketball stat already exists according to user_id, game_id, and team_name
+            StatBasketball existingStat = statBasketballDAO.findAll().stream().filter(s ->
+                    s.getUserId() == stat.getUserId() &&
+                            s.getGameId() == stat.getGameId() &&
+                            s.getTeamName().equals(stat.getTeamName())).findFirst().get();
+
+            // Exists, so update with latest information
+            existingStat.setPoints(stat.getPoints());
+            existingStat.setFouls(stat.getFouls());
+
+            statBasketballDAO.update(existingStat);
+
+            return existingStat;
+        } catch (NoSuchElementException e) {
+            // Does not exist, so create a new one
+            return statBasketballDAO.save(stat);
+        }
+
     }
 }

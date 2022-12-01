@@ -47,7 +47,7 @@ public class StatBasketballDAO implements CrudDAO<StatBasketball>{
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
 
-            int id = rs.getInt("user_id");
+            int id = rs.getInt("s_basketball_id");
             statBasketball.setStatBasketballId(id);
             return statBasketball;
         } catch (SQLException exception) {
@@ -114,5 +114,37 @@ public class StatBasketballDAO implements CrudDAO<StatBasketball>{
             throw new DatabaseConnectionException();
         }
 
+    }
+
+    public List<StatBasketball> findAllByGameId(int gameId) {
+        try(Connection connection = ConnectionUtil.getConnection()){
+            String sql = "select * from stat_basketball where game_id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, gameId);
+            ResultSet rs = ps.executeQuery();
+
+            List<StatBasketball> stats = new ArrayList();
+
+            while (rs.next()){
+                StatBasketball stat = new StatBasketball();
+
+                stat.setStatBasketballId(rs.getInt("s_basketball_id"));
+                stat.setUserId(rs.getInt("user_id"));
+                stat.setGameId(rs.getInt("game_id"));
+                stat.setTeamName(rs.getString("team_name"));
+                stat.setPoints(rs.getInt("points"));
+                stat.setRebounds(rs.getInt("rebounds"));
+                stat.setAssists(rs.getInt("assists"));
+                stat.setFouls(rs.getInt("fouls"));
+
+                stats.add(stat);
+            }
+
+            return stats;
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new DatabaseConnectionException();
+        }
     }
 }
