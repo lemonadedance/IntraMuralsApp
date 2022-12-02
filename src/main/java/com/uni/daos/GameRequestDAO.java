@@ -42,20 +42,25 @@ public class GameRequestDAO implements CrudDAO<GameRequest> {
     }
 
 
-    public GameRequest delete(int gameId, int userId){
+    public boolean delete(int gameId, int userId){
         try(Connection connection = ConnectionUtil.getConnection()){
             String sql = "delete from game_requests where game = ? and user_id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, gameId);
             ps.setInt(2, userId);
 
-            ps.execute();
+            int recordsDeleted = ps.executeUpdate();
+
+            if (recordsDeleted >= 1) {
+                return true;
+            } else {
+                return false;
+            }
 
         } catch (SQLException exception) {
             exception.printStackTrace();
             throw new DatabaseConnectionException();
         }
-        return null;
     }
 
     @Override

@@ -7,6 +7,6 @@ public interface GameRequestService {
 
     GameRequest createRequest(GameRequest gameRequest);
 
-    GameRequest deleteRequest(int gameId, int userId);
+    boolean deleteRequest(int gameId, int userId);
     List<GameRequest> getAllGamesAndReferees();
 }

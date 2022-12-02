@@ -1,6 +1,7 @@
 package com.uni.controllers;
 
 import com.uni.entities.TeamRequest;
+import com.uni.exceptions.ResourceNotFoundException;
 import com.uni.services.RegistrationService;
 import io.javalin.http.Context;
 
@@ -36,14 +37,24 @@ public class TeamRequestController {
 
     public void approveRequest(Context context){
         int id = Integer.parseInt(context.pathParam("id"));
-        TeamRequest request = this.registrationService.approveRequest(id);
-        context.json(request);
+        
+        try {
+            TeamRequest request = this.registrationService.approveRequest(id);
+            context.json(request);
+        } catch(ResourceNotFoundException e) {
+            context.status(404);
+        }
     }
 
     public void denyRequest(Context context){
         int id = Integer.parseInt(context.pathParam("id"));
-        TeamRequest request = this.registrationService.denyRequest(id);
-        context.json(request);
+
+        try {
+            TeamRequest request = this.registrationService.denyRequest(id);
+            context.json(request);
+        } catch(ResourceNotFoundException e) {
+            context.status(404);
+        }
     }
 
 

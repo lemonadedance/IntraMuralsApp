@@ -29,4 +29,5 @@ public interface RegistrationService {
     void updateRole(int id, String role);
     List<TeamRequest> filterTeamRequestsByPlayer(int parseInt);
     Team getTeamByTeamName(String teamName);
+    List<ImUser> retrievePlayersByTeam(String teamName);
 }
